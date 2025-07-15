@@ -20,15 +20,20 @@ class ProductRepositoryImpl implements ProductRepository {
   @override
   Future<List<Product>> findAllByCategories(String category) async {
     final response = await dio.get('/category/$category');
-
     return [
       for (final product in response.data['products'] as List)
         Product.fromJson(product),
     ];
   }
+
+  @override
+  Future<Product> findProductById(int id) async {
+    final response = await dio.get('/$id');
+    return Product.fromJson(response.data);
+  }
 }
 
 @riverpod
-ProductRepositoryImpl productRepository(ProductRepositoryRef ref) {
+ProductRepository productRepository(ProductRepositoryRef ref) {
   return ProductRepositoryImpl(dio: ref.watch(dioProvider));
 }
