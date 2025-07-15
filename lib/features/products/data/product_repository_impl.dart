@@ -28,7 +28,6 @@ class ProductRepositoryImpl implements ProductRepository {
   }
 }
 
-// Criação do provedor de repository como DI.
 @riverpod
 ProductRepositoryImpl productRepository(ProductRepositoryRef ref) {
   return ProductRepositoryImpl(dio: ref.watch(dioProvider));
